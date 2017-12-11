@@ -196,7 +196,7 @@ function newGame() { // reinizializza ogni volta un nuovo gioco e chiama le funz
     init(); //riinizializza la board tutta a 0.
     newShape(); //crea nuovi shape
     lose = false;  //resetta la variabile della perdita a 0
-    interval = setInterval( tick, 250 );  //sttta il periodo di tempo in cuoie eseguire le funziioni
+    interval = setInterval( tick, 550 );  //sttta il periodo di tempo in cuoie eseguire le funziioni
 }
 
 newGame();
