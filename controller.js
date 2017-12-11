@@ -1,6 +1,7 @@
 document.body.onkeydown = function( e ) { //document.body.onkeydown si attiva quando cheiaccio uun tasto sulla keyboard e si attiva la funzione che controlla se il tasto schiacciato corrisponde a uno di quelli previsti e fa partire l'azione sul gioco
     //la variabile all'interno di function è quella che ha fatto attivare il tutto e potevo chiamarla anche event
     var keys = {
+		27: 'pause',
         37: 'left',
         39: 'right',
         40: 'down',

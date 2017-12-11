@@ -4,6 +4,7 @@ var lose;
 var interval;
 var current; // current moving shape. (forma in movimento corrente)
 var currentX, currentY; // position of current shape
+var paused = false;
 
 var shapes = [
     [ 1, 1, 1, 1 ],
@@ -64,18 +65,20 @@ function init() { //reinizializza la variabile (matrice board) tutta a 0.
 
 // keep the element moving down, creating new shapes and clearing lines
 function tick() {  //questa funzione muove gli elementi, controlla se stanno andando in posizioni valide, in caso li posiziona, e se si ha perso reinizializza il nuovo gioco
-    if ( valid( 0, 1 ) ) {
-        ++currentY;
-    }
-    // if the element settled
-    else {
-        freeze();
-        clearLines();
-        if (lose) {
-            newGame();
-            return false;
-        }
-        newShape();
+    if (paused == false){
+		if ( valid( 0, 1 ) ) {
+	        ++currentY;
+	    }
+	    // if the element settled
+	    else {
+	        freeze();
+	        clearLines();
+	        if (lose) {
+	            newGame();
+	            return false;
+	        }
+	        newShape();
+	    }
     }
 }
 
@@ -128,26 +131,34 @@ function clearLines() {
 function keyPress( key ) { //alla pressione dei tasti, se l'operazione è consentita aggiorna la posizione corrente dello shape
     switch ( key ) {
         case 'left':
-            if ( valid( -1 ) ) {
+            if ( valid( -1 ) && paused == false ) {
                 --currentX; //  
             }
             break;
         case 'right':
-            if ( valid( 1 ) ) {
+            if ( valid( 1 ) && paused == false ) {
                 ++currentX;
             }
             break;
         case 'down':
-            if ( valid( 0, 1 ) ) {
+            if ( valid( 0, 1 ) && paused == false ) {
                 ++currentY;
             }
             break;
         case 'rotate':
             var rotated = rotate( current );  //semplicemente ruota il blocco nella mia matrice 4x4 e non mi causa problemi di altro tipo
-            if ( valid( 0, 0, rotated ) ) { //se il blocco ruotato è ancora valido allora lo lo assegno al blocco corrente
+            if ( valid( 0, 0, rotated ) && paused == false ) { //se il blocco ruotato è ancora valido allora lo lo assegno al blocco corrente
                 current = rotated;
             }
             break;
+		case 'pause':
+			if (paused == false) {
+				paused = true;
+			}
+			else {
+				paused = false;
+			}
+			break;
     }
 }
 
